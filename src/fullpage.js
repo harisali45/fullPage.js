@@ -1688,6 +1688,22 @@
         * Performs the vertical movement (by CSS3 or by jQuery)
         */
         function performMovement(v){
+
+            if (options.animation) {
+                var scrollDirection = getScrollDirection();
+                var currentElem = $(scrollSettings.element);
+                var nextElem;
+                if (scrollDirection == "up") {
+                    nextElem = currentElem.prev();
+                } else {
+                    nextElem = currentElem.next();
+                }
+                if (nextElem) {
+                    currentElem.removeClass(scrollSettings.custom.enterClass);
+                    currentElem.addClass(scrollSettings.custom.leaveClass);
+                    nextElem.addClass(scrollSettings.custom.enterClass);
+                }
+            } else {
             // using CSS3 translate functionality
             if (options.css3 && options.autoScrolling && !options.scrollBar) {
 
@@ -1730,6 +1746,7 @@
                     }
                 });
             }
+        }
         }
 
         /**
